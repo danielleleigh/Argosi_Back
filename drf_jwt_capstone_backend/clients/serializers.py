@@ -4,9 +4,9 @@ from .models import Appointment, Client
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['id', 'first_name', 'last_name', 'dob', 'email', 'birth_zip' ]
+        fields = ['id', 'first_name', 'last_name', 'dob', 'sun_sign', 'moon_sign', 'rising_sign', 'email', 'birth_zip' ]
 
 class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
-        fields = ['id', 'client', 'date_time', 'past_summary']
+        fields = ['id', 'date_time', 'past_summary']

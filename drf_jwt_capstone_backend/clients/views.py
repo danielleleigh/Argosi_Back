@@ -41,7 +41,7 @@ def get_appointments(request):
 
 @api_view(['POST', 'GET'])
 @permission_classes([IsAuthenticated])
-def add_appointment(request):
+def add_appointments(request):
     if request.method == 'POST':
         serializer = AppointmentSerializer(data=request.data)
         if serializer.is_valid():
