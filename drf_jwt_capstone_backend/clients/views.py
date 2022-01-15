@@ -55,12 +55,12 @@ def add_appointments(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-@api_view(['DELETE'])
-@permission_classes([AllowAny])
-def delete_appointment(appointment,request, pk):
-    appointment = Appointment.objects(pk)
-    appointment.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+# @api_view(['DELETE'])
+# @permission_classes([AllowAny])
+# def delete_appointment(request):
+#     appointment = Appointment.objects.get()
+#     appointment.delete()
+#     return Response(status=status.HTTP_204_NO_CONTENT)
 
 # def delete(self, request, pk):
 #         song = self.get_object(pk)
