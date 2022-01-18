@@ -10,7 +10,6 @@ from .models import Client, Appointment
 from .serializers import ClientSerializer, AppointmentSerializer
 from django.contrib.auth import get_user_model
 
-from drf_jwt_capstone_backend.clients import serializers
 
 User = get_user_model()
 
@@ -34,7 +33,29 @@ def add_client(request):
         clients = Client.objects.filter(user=request.user.id)
         serializer = ClientSerializer(clients, many=True)
     
-        
+@api_view(['PUT'])
+@permission_classes([AllowAny])
+def edit_client(request, pk):
+    client = Client.objects.get(id = pk)
+    client.first_name = request.data['first_name']
+    client.last_name = request.data['last_name']
+    client.username = request.data['username']
+    client.password = request.data['password']
+    client.email = request.data['email']
+    client.dob = request.data['dob']
+    client.birth_zip = request.data['birth_zip']
+    client.birth_time = request.data['birth_time']
+    client.save()
+    serializer = ClientSerializer(client)
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+@permission_classes([AllowAny])
+def delete_client(request, pk):
+    client = Client.objects.get(id = pk)
+    client.delete()
+    return Response(status=status.HTTP_200_OK)
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_appointments(request):
@@ -62,7 +83,7 @@ def add_appointments(request):
 def delete_appointment(request, pk):
     appointment = Appointment.objects.get(id = pk)
     appointment.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(status=status.HTTP_200_OK)
 
 @api_view(['PUT'])
 @permission_classes([AllowAny])
@@ -70,6 +91,8 @@ def edit_appointment(request, pk):
     appointment = Appointment.objects.get(id = pk)
     appointment.date = request.data['date']
     appointment.time = request.data['time']
+    appointment.notes = request.data['notes']
     appointment.save()
     serializer = AppointmentSerializer(appointment)
     return Response(serializer.data)
+    

@@ -23,7 +23,7 @@ class ClientRegistrationSerializer(serializers.ModelSerializer):
         model = Client
         # If added new columns through the User model, add them in the fields
         # list as seen below
-        fields = ['user', 'first_name', 'last_name', 'username','password','dob', 'birth_time', 'email', 'birth_zip']
+        fields = ['id','user', 'first_name', 'last_name', 'username','password','dob', 'birth_time', 'email', 'birth_zip']
 
 
     def create(self, validated_data):
@@ -48,4 +48,4 @@ class ClientRegistrationSerializer(serializers.ModelSerializer):
 class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
-        fields = ['client','date', 'time', 'notes']
+        fields = ['id','client','date', 'time', 'notes']
